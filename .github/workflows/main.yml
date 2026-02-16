@@ -1,0 +1,33 @@
+name: Binance Otomatik Tarayici
+
+on:
+  schedule:
+    # GitHub'ın izin verdiği en hızlı çalışma süresi (yaklaşık 5-10 dakikada bir)
+    - cron: '*/5 * * * *'
+  workflow_dispatch: # Bu satır, senin elle "Şimdi Çalıştır" demeni sağlar
+
+jobs:
+  taramayi_baslat:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Proje dosyalarini indir
+      uses: actions/checkout@v3
+
+    - name: Python Yukle
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Gerekli Kutuphaneleri Kur
+      run: |
+        pip install -r requirements.txt
+
+    - name: Botu Calistir
+      # GitHub Settings > Secrets kısmına eklediğin şifreleri bota bağlıyoruz
+      env:
+        BINANCE_API_KEY: ${{ secrets.BINANCE_API_KEY }}
+        BINANCE_SECRET_KEY: ${{ secrets.BINANCE_SECRET_KEY }}
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        CHAT_ID: ${{ secrets.CHAT_ID }}
+      run: python main.py
