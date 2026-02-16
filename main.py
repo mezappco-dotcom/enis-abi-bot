@@ -19,7 +19,9 @@ HTF1 = "1h"
 HTF2 = "4h"
 COOLDOWN_MINUTES = 60
 
-client = Client(BINANCE_API_KEY, BINANCE_SECRET_KEY)
+# Binance kısıtlamasını aşmak için alternatif uç nokta kullanıyoruz
+client = Client(BINANCE_API_KEY, BINANCE_SECRET_KEY, tld='com')
+client.API_URL = 'https://api1.binance.com/api' # Alternatif sunucu 1
 
 last_signal_time = {}
 
