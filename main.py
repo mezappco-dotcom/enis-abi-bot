@@ -5,7 +5,19 @@ import requests
 import ta
 import time
 from datetime import datetime, timedelta
-from config import *
+import os
+
+# GitHub Secrets'tan verileri çekiyoruz
+BINANCE_API_KEY = os.getenv('BINANCE_API_KEY')
+BINANCE_SECRET_KEY = os.getenv('BINANCE_SECRET_KEY')
+BOT_TOKEN = os.getenv('BOT_TOKEN')
+CHAT_ID = os.getenv('CHAT_ID')
+
+# Botun teknik ayarları
+MAIN_INTERVAL = "15m"
+HTF1 = "1h"
+HTF2 = "4h"
+COOLDOWN_MINUTES = 60
 
 client = Client(BINANCE_API_KEY, BINANCE_SECRET_KEY)
 
